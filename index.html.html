@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FoodLink – أكل زيادة؟ وصّله لمين محتاجه</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Tajawal:wght@400;500;700&display=swap');
+:root{
+  --bg:#FFFFFF;--surface:#FFFFFF;--ink:#14281D;--muted:#4C5F53;--line:#D5E3D0;
+  --green:#1B6B3A;--deep:#0E4426;--on-green:#FFFFFF;--mint:#E7F3DF;--sun:#F2B632;--sun-ink:#2A1E00;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1A13;--surface:#162419;--ink:#EAF3EC;--muted:#9FB3A5;--line:#2A3D31;--green:#3FAE6A;--on-green:#07210F;--mint:#1A2F22;}}
+:root[data-theme="dark"]{--bg:#0E1A13;--surface:#162419;--ink:#EAF3EC;--muted:#9FB3A5;--line:#2A3D31;--green:#3FAE6A;--on-green:#07210F;--mint:#1A2F22}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 'Tajawal',Tahoma,sans-serif}
+h1,h2,h3{margin:0;line-height:1.3;font-family:'Cairo','Tajawal',Tahoma,sans-serif}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{display:flex;align-items:center;gap:20px;padding:14px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;margin-inline-end:auto}
+.logo svg{width:46px;height:46px}
+.logo b{display:block;font:800 28px/1.1 'Cairo',sans-serif;color:var(--green)}
+.logo small{display:block;font-size:13px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:7px 16px;border-radius:999px;font-weight:700;font-size:15px}
+nav a.on{background:var(--green);color:var(--on-green)}
+.btn{font:700 16px 'Tajawal',sans-serif;border:2px solid var(--green);border-radius:999px;padding:10px 24px;cursor:pointer;background:var(--green);color:var(--on-green);display:inline-flex;align-items:center;gap:8px}
+.btn.out{background:transparent;color:var(--green)}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:var(--sun-ink)}
+.btn:disabled{opacity:.65;cursor:default}
+.hero{background:linear-gradient(260deg,var(--mint),transparent 70%);display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:34px 0 30px}
+.hero h1{font-size:clamp(36px,5.6vw,60px);font-weight:800;color:var(--green)}
+.hero h1 span{color:var(--ink);display:block}
+.hero p{font-size:clamp(17px,2vw,20px);margin:16px 0 24px;max-width:30em}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.visual{position:relative;display:grid;place-items:center;min-height:290px}
+.box{width:min(370px,92%);position:relative;margin-top:70px}
+.produce{position:absolute;left:0;right:0;top:-74px;display:flex;justify-content:center;font-size:66px;line-height:1;z-index:1;direction:ltr}
+.front{background:linear-gradient(#D9A66B,#C48F55);border-radius:6px 6px 18px 18px;padding:22px 14px 20px;text-align:center;position:relative;z-index:2;box-shadow:0 14px 28px rgba(0,0,0,.18);color:#14401F}
+.front b{display:block;font:800 30px/1.1 'Cairo',sans-serif}
+.front small{font-size:14px}
+.badge{position:absolute;top:0;inset-inline-end:0;background:var(--sun);color:#fff;border-radius:12px;padding:8px 12px;font:800 13px/1.2 'Cairo',sans-serif;z-index:3;display:flex;align-items:center;gap:8px}
+.badge big{font-size:38px}
+.panel{background:var(--mint);border-radius:20px;padding:18px 24px}
+.tally{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin:10px 0 6px}
+.tally b{font:800 clamp(44px,7vw,64px)/1 'Cairo',sans-serif;color:var(--green)}
+.tally span{font-size:19px;font-weight:700}
+.tally small{margin-inline-start:auto;color:var(--muted);font-size:14px}
+section.blk{padding:34px 0 6px}
+section.blk h2{font-size:clamp(26px,4vw,36px);color:var(--green);margin-bottom:6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 16px;font:500 15px 'Tajawal',sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.board{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.card.done{background:var(--mint)}
+.card h3{font-size:20px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.tag{align-self:flex-start;background:var(--mint);border-radius:8px;padding:1px 10px;font-size:14px;font-weight:700}
+.card .btn{margin-top:auto;justify-content:center}
+.empty{grid-column:1/-1;padding:26px;border:2px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted)}
+.how h2{text-align:center;font-size:clamp(26px,4vw,34px);color:var(--green);margin-bottom:6px}
+.how .sub{text-align:center}
+.steps{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;text-align:center}
+.step{flex:1;font-size:15px;color:var(--muted)}
+.step .ic{width:76px;height:76px;border-radius:50%;background:var(--mint);display:grid;place-items:center;font-size:36px;margin:0 auto 8px}
+.step b{display:block;font:700 18px 'Cairo',sans-serif;color:var(--ink)}
+.step b i{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);color:var(--on-green);font-size:13px;margin-inline-end:8px}
+.arrow{align-self:center;color:var(--green);font-size:26px}
+form{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form .full{grid-column:1/-1}
+label{display:grid;gap:6px;font-weight:700;font-size:15px}
+input,select{font:400 17px 'Tajawal',sans-serif;padding:10px 12px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.note{min-height:1.6em;margin:0;color:var(--green);font-weight:700}
+footer{background:var(--deep);color:#fff;border-radius:18px;padding:18px 26px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin:34px 0 26px;font-size:15px}
+footer .l{display:flex;align-items:center;gap:10px;font:800 24px 'Cairo',sans-serif}
+footer .l svg{width:38px;height:38px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}form{grid-template-columns:1fr}.steps{flex-wrap:wrap}.tally small{margin:0}}
+@media (max-width:520px){.arrow{display:none}.step{flex-basis:100%}}
+@media (prefers-reduced-motion:no-preference){.produce{animation:rise .8s ease-out both}@keyframes rise{from{transform:translateY(24px);opacity:0}}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="lf" viewBox="0 0 64 64"><path d="M6 40C6 22 20 10 34 10c0 18-8 32-26 32z" fill="#1B6B3A"/><path d="M30 54c0-16 10-30 28-32 0 18-10 30-28 32z" fill="#3FAE6A"/><path d="M26 18v38M44 8v14M40 8v12M48 8v12" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none"/></symbol>
+</svg>
+<div class="wrap">
+<header>
+  <a class="logo" href="#top" aria-label="FoodLink"><svg><use href="#lf"/></svg><span><b>FoodLink</b><small>هدر أقل.. أمل أكتر</small></span></a>
+  <nav aria-label="القائمة الرئيسية">
+    <a class="on" href="#top">الرئيسية</a><a href="#board">أكل متاح</a><a href="#how">إزاي بيشتغل</a><a href="#share">شارك أكل</a>
+  </nav>
+  <a class="btn sun" href="#share">شارك أكل</a>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div>
+      <h1>الأكل الزيادة عندك <span>ينفع حد النهارده</span></h1>
+      <p>مطعم، مخبز، فرح أو بيت: لو عندك أكل سليم زاد عن حاجتك، انشره في دقيقة. أقرب جمعية أو أسرة محتاجة تحجزه وتستلمه قبل ما يبوظ.</p>
+      <div class="cta">
+        <a class="btn" href="#share">عندي أكل أتبرع بيه</a>
+        <a class="btn out" href="#board">محتاج أكل</a>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="badge" aria-label="الهدف الثاني: صفر جوع"><big>2</big><span>صفر<br>جوع</span></div>
+      <div class="box">
+        <div class="produce" aria-hidden="true">🥬🍅🥖🍌🥕</div>
+        <div class="front"><b>FoodLink</b><small>هدر أقل.. أمل أكتر</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel tally" aria-live="polite">
+    <b id="meals">0</b>
+    <span>وجبة اتحجزت على FoodLink</span>
+    <small>الأرقام والعروض هنا أمثلة للتجربة</small>
+  </div>
+
+  <section class="blk" id="board">
+    <h2>أكل متاح دلوقتي</h2>
+    <p class="sub">اختار نوع الأكل واحجز اللي يناسبك. الحجز بيوصل لصاحب العرض.</p>
+    <div class="chips" id="chips" role="group" aria-label="تصفية حسب النوع"></div>
+    <div class="board" id="list"></div>
+  </section>
+
+  <section class="blk how" id="how">
+    <h2>إزاي بيشتغل</h2>
+    <p class="sub">تلات خطوات، من غير تسجيل معقد.</p>
+    <div class="steps">
+      <div class="step"><div class="ic">🏪</div><b><i>1</i>انشر العرض</b>اكتب نوع الأكل، الكمية، المكان، وآخر ميعاد للاستلام.</div>
+      <div class="arrow" aria-hidden="true">&larr;</div>
+      <div class="step"><div class="ic">🤝</div><b><i>2</i>حد يحجزه</b>جمعية أو أسرة تضغط حجز، والعرض يتقفل باسمهم.</div>
+      <div class="arrow" aria-hidden="true">&larr;</div>
+      <div class="step"><div class="ic">💚</div><b><i>3</i>الاستلام</b>بيستلموه من مكانك في الميعاد المحدد، والأكل ما يترميش.</div>
+    </div>
+  </section>
+
+  <section class="blk" id="share">
+    <h2>شارك أكل</h2>
+    <p class="sub">العرض هيظهر فوق في اللوحة فورًا.</p>
+    <form id="form">
+      <label>اسمك أو اسم المكان<input name="who" required placeholder="مثال: مخبز النور"></label>
+      <label>الأكل إيه؟<input name="what" required placeholder="مثال: عيش فينو"></label>
+      <label>النوع<select name="type"><option>مطبوخ</option><option>مخبوزات</option><option>خضار وفاكهة</option><option>معلبات</option></select></label>
+      <label>عدد الوجبات تقريبًا<input name="qty" type="number" min="1" max="500" value="10" required></label>
+      <label>المنطقة<input name="area" required placeholder="مثال: سيدي جابر"></label>
+      <label>الاستلام قبل الساعة<input name="time" type="time" value="20:00" required></label>
+      <div class="full"><button class="btn" type="submit">انشر العرض</button></div>
+      <p class="note full" id="note" role="status"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="l"><svg><use href="#lf"/></svg>FoodLink</div>
+    <span>بنربط الأكل الزيادة بالناس اللي محتاجاه. لازم الأكل يكون سليم ومحفوظ صح قبل النشر.</span>
+  </footer>
+</main>
+</div>
+
+<script>
+var types=["الكل","مطبوخ","مخبوزات","خضار وفاكهة","معلبات"];
+var items=[
+ {id:1,who:"مطعم الشاطئ",what:"أرز وفراخ مشوية",type:"مطبوخ",qty:25,area:"سموحة",time:"21:00",taken:false},
+ {id:2,who:"مخبز النور",what:"عيش فينو وبلدي",type:"مخبوزات",qty:60,area:"المنشية",time:"19:30",taken:false},
+ {id:3,who:"سوق العصافرة",what:"طماطم وخيار",type:"خضار وفاكهة",qty:40,area:"العصافرة",time:"18:00",taken:false},
+ {id:4,who:"أسرة بعد حفلة عيد ميلاد",what:"معكرونة وسلطة",type:"مطبوخ",qty:15,area:"سيدي جابر",time:"22:00",taken:true}
+];
+var filter="الكل",meals=0,nextId=5;
+var chipsEl=document.getElementById("chips"),listEl=document.getElementById("list"),mealsEl=document.getElementById("meals");
+items.forEach(function(i){if(i.taken)meals+=i.qty});
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function drawChips(){
+  chipsEl.innerHTML="";
+  types.forEach(function(t){
+    var b=document.createElement("button");b.className="chip";b.textContent=t;
+    b.setAttribute("aria-pressed",String(t===filter));
+    b.onclick=function(){filter=t;drawChips();drawList()};
+    chipsEl.appendChild(b);
+  });
+}
+function drawList(){
+  mealsEl.textContent=meals;
+  var shown=items.filter(function(i){return filter==="الكل"||i.type===filter});
+  if(!shown.length){listEl.innerHTML='<div class="empty">مفيش عروض من النوع ده دلوقتي. لو عندك أكل، انشره من الفورم تحت.</div>';return}
+  listEl.innerHTML=shown.map(function(i){
+    return '<article class="card'+(i.taken?' done':'')+'"><span class="tag">'+esc(i.type)+'</span>'+
+    '<h3>'+esc(i.what)+'</h3>'+
+    '<p>من: '+esc(i.who)+'<br>'+esc(String(i.qty))+' وجبة تقريبًا · '+esc(i.area)+'<br>الاستلام قبل '+esc(i.time)+'</p>'+
+    '<button class="btn'+(i.taken?'':' sun')+'" data-id="'+i.id+'"'+(i.taken?' disabled':'')+'>'+(i.taken?'تم الحجز':'احجز')+'</button></article>';
+  }).join("");
+}
+listEl.addEventListener("click",function(e){
+  var id=e.target.getAttribute&&e.target.getAttribute("data-id");if(!id)return;
+  items.forEach(function(i){if(String(i.id)===id&&!i.taken){i.taken=true;meals+=i.qty}});
+  drawList();
+});
+document.getElementById("form").addEventListener("submit",function(e){
+  e.preventDefault();var f=new FormData(e.target);
+  items.unshift({id:nextId++,who:f.get("who"),what:f.get("what"),type:f.get("type"),qty:parseInt(f.get("qty"),10)||1,area:f.get("area"),time:f.get("time"),taken:false});
+  filter="الكل";drawChips();drawList();e.target.reset();
+  document.getElementById("note").textContent="تم نشر العرض. هتلاقيه أول اللوحة.";
+});
+drawChips();drawList();
+</script>
+</body>
+</html>
